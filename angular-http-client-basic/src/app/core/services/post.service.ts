@@ -8,19 +8,29 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Post } from 'src/app/shared/models/post';
 
-const options = {
+const observeResponse = {
     observe: 'response' as const,
+};
+
+const nonJsonData = {
+    responseType: 'text' as const,
 };
 
 @Injectable()
 export class PostService {
-    BASE_API_URL = 'https://jsonplaceholder.typicode.com/posts/';
+    BASE_API_URL = 'http://localhost:8080/api/v1.0/posts';
 
     constructor(private _http: HttpClient) {}
 
     getPosts(): Observable<HttpResponse<Array<Post>>> {
         return this._http
-            .get<Array<Post>>(this.BASE_API_URL, options)
+            .get<Array<Post>>(this.BASE_API_URL, observeResponse)
+            .pipe(retry(3), catchError(this.handleError));
+    }
+
+    getPostsCount(): Observable<string> {
+        return this._http
+            .get(`${this.BASE_API_URL}/count`, nonJsonData)
             .pipe(retry(3), catchError(this.handleError));
     }
 

@@ -1,0 +1,16 @@
+<h2>Posts:</h2>
+<div *ngFor="let post of posts$ | async">
+    ID: {{ post.id }}, title: {{ post.title }}
+</div>
+
+<br />
+
+<h2>Headers of HTTP response:</h2>
+<ng-container *ngIf="headers$ | async as headers">
+    <div *ngFor="let header of headers.keys()">
+        Header: {{ header }}, value: {{ headers.get(header) }}
+    </div>
+</ng-container>
+
+<h2>Status code:</h2>
+<div>Status code: {{ status$ | async }}</div>

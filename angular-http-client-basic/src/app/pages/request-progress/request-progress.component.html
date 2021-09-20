@@ -1,0 +1,12 @@
+<h2>Upload a file</h2>
+<form enctype="multipart/form-data" method="post">
+    <div>
+        <label for="picked">Choose a file to upload:</label>
+        <input type="file" id="picked" #picked (change)="onPicked(picked)" />
+    </div>
+</form>
+
+<br /><br /><br />
+<ng-container *ngIf="progressMessages$ | async as progressMessages">
+    <div *ngFor="let message of progressMessages">{{ message }}</div>
+</ng-container>

@@ -7,6 +7,7 @@ import { LoggingInterceptor } from './interceptors/logging-interceptor';
 import { CachingInterceptor } from './interceptors/caching-interceptor';
 import { CacheService } from './services/cache.service';
 import { RequestCacheService } from './services/request-cache.service';
+import { UploadInterceptor } from './interceptors/upload-interceptor';
 
 @NgModule({
     declarations: [],
@@ -17,6 +18,11 @@ import { RequestCacheService } from './services/request-cache.service';
         {
             provide: HTTP_INTERCEPTORS,
             useClass: LoggingInterceptor,
+            multi: true,
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: UploadInterceptor,
             multi: true,
         },
         {

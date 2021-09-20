@@ -1,7 +1,6 @@
 import {
     HttpClient,
     HttpErrorResponse,
-    HttpHeaders,
     HttpParams,
     HttpResponse,
 } from '@angular/common/http';

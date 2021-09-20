@@ -23,6 +23,13 @@ const routes: Routes = [
                 (m) => m.QueryParamsModule
             ),
     },
+    {
+        path: 'request-progress',
+        loadChildren: () =>
+            import('./pages/request-progress/request-progress.module').then(
+                (m) => m.RequestProgressModule
+            ),
+    },
 ];
 
 @NgModule({

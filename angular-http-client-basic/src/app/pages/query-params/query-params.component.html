@@ -1,0 +1,10 @@
+<h2>Query Params</h2>
+
+<label for="title">Title: </label>
+<input id="title" #input />
+<button (click)="onSearchTitle(input.value)">Search</button>
+<br />
+
+<ng-container *ngIf="posts$ | async as posts">
+    <div *ngFor="let post of posts">Title: {{ post.title }}</div>
+</ng-container>

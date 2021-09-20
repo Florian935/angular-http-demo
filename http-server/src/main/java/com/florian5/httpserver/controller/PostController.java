@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
@@ -36,5 +37,22 @@ public class PostController {
     String getCountPosts() {
 
         return String.valueOf(posts.size());
+    }
+
+    @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(CREATED)
+    Post save(@RequestBody Post post) {
+
+        posts.add(post);
+
+        return post;
+    }
+
+    @GetMapping(value = "/search", produces = APPLICATION_JSON_VALUE)
+    List<Post> findByTitle(@RequestParam String title) {
+
+        return this.posts.stream()
+                .filter(post -> post.getTitle().toLowerCase().contains(title.toLowerCase()))
+                .toList();
     }
 }

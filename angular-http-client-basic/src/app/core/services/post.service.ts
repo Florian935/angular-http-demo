@@ -1,6 +1,7 @@
 import {
     HttpClient,
     HttpErrorResponse,
+    HttpParams,
     HttpResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -32,6 +33,15 @@ export class PostService {
         return this._http
             .get(`${this.BASE_API_URL}/count`, nonJsonData)
             .pipe(retry(3), catchError(this.handleError));
+    }
+
+    searchPost(title: string): Observable<Array<Post>> {
+        const options = { params: new HttpParams().set('title', title) };
+
+        return this._http.get<Array<Post>>(
+            `${this.BASE_API_URL}/search`,
+            options
+        );
     }
 
     private handleError(error: HttpErrorResponse) {

@@ -16,6 +16,13 @@ const routes: Routes = [
                 (m) => m.NonJsonDataModule
             ),
     },
+    {
+        path: 'query-params',
+        loadChildren: () =>
+            import('./pages/query-params/query-params.module').then(
+                (m) => m.QueryParamsModule
+            ),
+    },
 ];
 
 @NgModule({

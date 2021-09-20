@@ -6,7 +6,7 @@
     </div>
 </form>
 
-<br /><br /><br />
+<br /><br />
 <ng-container *ngIf="progressMessages$ | async as progressMessages">
     <div *ngFor="let message of progressMessages">{{ message }}</div>
 </ng-container>

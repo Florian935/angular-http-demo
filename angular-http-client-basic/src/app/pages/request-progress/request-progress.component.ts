@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { UploaderService } from 'src/app/core/services/uploader.service';
+import { Nullable } from 'src/app/shared';
 
 @Component({
     selector: 'app-request-progress',
@@ -18,7 +19,7 @@ export class RequestProgressComponent implements OnInit {
     }
 
     onPicked(input: HTMLInputElement): void {
-        const file = input.files?.[0];
+        const file: Nullable<File> = input.files?.[0];
 
         if (file) {
             this._uploaderService

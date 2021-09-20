@@ -46,7 +46,6 @@ export class CachingInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             tap((event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {
-                    console.log('MISE EN CACHE');
                     cache.put(request, event); // update the cache
                 }
             })

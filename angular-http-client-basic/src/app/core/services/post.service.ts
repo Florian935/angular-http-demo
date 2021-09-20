@@ -1,6 +1,7 @@
 import {
     HttpClient,
     HttpErrorResponse,
+    HttpHeaders,
     HttpParams,
     HttpResponse,
 } from '@angular/common/http';
@@ -8,10 +9,6 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Post } from 'src/app/shared/models/post';
-
-const observeResponse = {
-    observe: 'response' as const,
-};
 
 const nonJsonData = {
     responseType: 'text' as const,
@@ -24,8 +21,12 @@ export class PostService {
     constructor(private _http: HttpClient) {}
 
     getPosts(): Observable<HttpResponse<Array<Post>>> {
+        const options = {
+            observe: 'response' as const,
+        };
+
         return this._http
-            .get<Array<Post>>(this.BASE_API_URL, observeResponse)
+            .get<Array<Post>>(this.BASE_API_URL, options)
             .pipe(retry(3), catchError(this.handleError));
     }
 

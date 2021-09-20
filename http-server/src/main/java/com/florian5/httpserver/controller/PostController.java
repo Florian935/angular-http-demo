@@ -30,7 +30,9 @@ public class PostController {
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
-    List<Post> getAll() {
+    List<Post> getAll(@RequestHeader("Authorization") String token) {
+
+        log.info("Token: {}", token);
 
         return posts;
     }

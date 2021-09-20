@@ -22,7 +22,6 @@ export class RequestCacheService implements CacheService {
         }
 
         const isExpired = cached.lastRead < Date.now() - maxAge;
-        const expired = isExpired ? 'expired ' : '';
 
         return isExpired ? undefined : cached.response;
     }

@@ -48,11 +48,22 @@ public class PostController {
         return post;
     }
 
-    @GetMapping(value = "/search", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/search", produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(OK)
     List<Post> findByTitle(@RequestParam String title) {
 
         return this.posts.stream()
                 .filter(post -> post.getTitle().toLowerCase().contains(title.toLowerCase()))
+                .toList();
+    }
+
+    @GetMapping(path = "/multiple/search", produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(OK)
+    List<Post> findByTitleAndContent(@RequestParam String title, @RequestParam String content) {
+
+        return this.posts.stream()
+                .filter(post -> post.getTitle().toLowerCase().contains(title.toLowerCase()))
+                .filter(post -> post.getBody().toLowerCase().contains(content.toLowerCase()))
                 .toList();
     }
 }

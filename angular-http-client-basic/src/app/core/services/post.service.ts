@@ -35,13 +35,20 @@ export class PostService {
             .pipe(retry(3), catchError(this.handleError));
     }
 
-    searchPost(title: string): Observable<Array<Post>> {
-        const options = { params: new HttpParams().set('title', title) };
+    searchPostByTitle(params: HttpParams): Observable<Array<Post>> {
+        const options = { params };
 
-        return this._http.get<Array<Post>>(
-            `${this.BASE_API_URL}/search`,
-            options
-        );
+        return this._http
+            .get<Array<Post>>(`${this.BASE_API_URL}/search`, options)
+            .pipe(retry(3), catchError(this.handleError));
+    }
+
+    searchPostByTitleAndContent(params: HttpParams): Observable<Array<Post>> {
+        const options = { params };
+
+        return this._http
+            .get<Array<Post>>(`${this.BASE_API_URL}/multiple/search`, options)
+            .pipe(retry(3), catchError(this.handleError));
     }
 
     private handleError(error: HttpErrorResponse) {

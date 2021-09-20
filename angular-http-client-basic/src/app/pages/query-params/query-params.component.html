@@ -1,10 +1,33 @@
 <h2>Query Params</h2>
 
 <label for="title">Title: </label>
-<input id="title" #input />
-<button (click)="onSearchTitle(input.value)">Search</button>
+<input id="title" #inputTitle />
+<button (click)="onSearchTitle(inputTitle.value)">Search</button>
 <br />
 
-<ng-container *ngIf="posts$ | async as posts">
-    <div *ngFor="let post of posts">Title: {{ post.title }}</div>
+<ng-container *ngIf="postsSearchByTitle$ | async as postsSearchByTitle">
+    <div *ngFor="let post of postsSearchByTitle">Title: {{ post.title }}</div>
+</ng-container>
+<br />
+<br />
+
+<label for="title">Title: </label>
+<input id="title" #inputTitle2 />
+<label for="title">Content: </label>
+<input id="title" #inputContent />
+<button
+    (click)="onSearchByTitleAndContent(inputTitle2.value, inputContent.value)"
+>
+    Search
+</button>
+<br />
+
+<ng-container
+    *ngIf="
+        postsSearchByTitleAndContent$ | async as postsSearchByTitleAndContent
+    "
+>
+    <div *ngFor="let post of postsSearchByTitleAndContent">
+        Title: {{ post.title }}
+    </div>
 </ng-container>

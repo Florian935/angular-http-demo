@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -50,11 +51,15 @@ public class PostController {
 
     @GetMapping(path = "/search", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
-    List<Post> findByTitle(@RequestParam String title) {
+    List<Post> findByTitle(@RequestParam(required = false) String title) {
 
-        return this.posts.stream()
-                .filter(post -> post.getTitle().toLowerCase().contains(title.toLowerCase()))
-                .toList();
+        if (Objects.nonNull(title)) {
+            return this.posts.stream()
+                    .filter(post -> post.getTitle().toLowerCase().contains(title.toLowerCase()))
+                    .toList();
+        }
+
+        return this.posts;
     }
 
     @GetMapping(path = "/multiple/search", produces = APPLICATION_JSON_VALUE)

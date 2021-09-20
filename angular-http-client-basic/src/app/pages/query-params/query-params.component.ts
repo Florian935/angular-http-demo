@@ -16,7 +16,11 @@ export class QueryParamsComponent {
     constructor(private _postService: PostService) {}
 
     onSearchTitle(title: string): void {
-        const httpParams = new HttpParams().append('title', title);
+        let httpParams = new HttpParams();
+
+        if (title) {
+            httpParams = new HttpParams().append('title', title);
+        }
 
         this.postsSearchByTitle$ =
             this._postService.searchPostByTitle(httpParams);

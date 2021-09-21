@@ -31,6 +31,13 @@ const routes: Routes = [
             ),
     },
     {
+        path: 'debouncing-interaction-form',
+        loadChildren: () =>
+            import(
+                './pages/debouncing-interaction-form/debouncing-interaction-form.module'
+            ).then((m) => m.DebouncingInteractionFormModule),
+    },
+    {
         path: 'debouncing-interaction',
         loadChildren: () =>
             import(

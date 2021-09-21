@@ -1,0 +1,14 @@
+<h2>Debouncing Interaction with Form</h2>
+
+<form [formGroup]="searchForm">
+    <label for="search">Title of post:</label>
+    <input id="search" formControlName="search" />
+</form>
+<br />
+<ng-container *ngIf="posts$ | async as posts">
+    <h4>Posts found :</h4>
+    <div *ngFor="let post of posts">
+        <strong>Title: </strong> {{ post.title }}, <strong>Content:</strong>
+        {{ post.body }}
+    </div>
+</ng-container>

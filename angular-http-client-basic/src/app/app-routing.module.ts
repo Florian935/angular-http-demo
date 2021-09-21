@@ -30,6 +30,22 @@ const routes: Routes = [
                 (m) => m.RequestProgressModule
             ),
     },
+    {
+        path: 'debouncing-interaction',
+        loadChildren: () =>
+            import(
+                './pages/debouncing-interaction/debouncing-interaction.module'
+            ).then((m) => m.DebouncingInteractionModule),
+    },
+    {
+        path: '',
+        redirectTo: 'entire-response',
+        pathMatch: 'full',
+    },
+    {
+        path: '**',
+        redirectTo: 'entire-response',
+    },
 ];
 
 @NgModule({

@@ -1,9 +1,11 @@
 import { HttpParams } from '@angular/common/http';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import {
     debounceTime,
+    distinctUntilChanged,
     distinctUntilKeyChanged,
     switchMap,
 } from 'rxjs/operators';
@@ -32,6 +34,18 @@ export class DebouncingInteractionFormComponent implements OnInit {
         this.posts$ = this.searchForm.valueChanges.pipe(
             debounceTime(500),
             distinctUntilKeyChanged('search'),
+            // this also works:
+
+            // distinctUntilChanged(
+            //     (previous: { search: string }, current: { search: string }) =>
+            //         previous.search === current.search
+            // ),
+
+            // distinctUntilChanged(
+            //     (previous: { search: string }, current: { search: string }) =>
+            //         previous === current,
+            //     key => key.search
+            // ),
             switchMap(({ search }) => {
                 const params: HttpParams = new HttpParams().append(
                     'title',

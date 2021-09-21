@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 
@@ -86,5 +86,20 @@ public class PostController {
                 .filter(post -> post.getTitle().toLowerCase().contains(title.toLowerCase()))
                 .filter(post -> post.getBody().toLowerCase().contains(content.toLowerCase()))
                 .toList();
+    }
+
+    @DeleteMapping(consumes = APPLICATION_JSON_VALUE)
+    @ResponseStatus(NO_CONTENT)
+    void deleteByIds(@RequestBody List<String> ids) {
+        ids.forEach(id -> {
+            int idInteger = Integer.parseInt(id);
+
+            Optional<Post> postToDelete = posts
+                    .stream()
+                    .filter(post -> post.getId().equals(Integer.parseInt(id)))
+                    .findFirst();
+
+            postToDelete.ifPresent(post -> posts.remove(post));
+        });
     }
 }

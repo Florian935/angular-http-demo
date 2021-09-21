@@ -1,0 +1,5 @@
+<h2>Delete with body data:</h2>
+
+<label for="ids">Enter post's ID to delete (separate by comma)</label>
+<input id="ids" #input />
+<button (click)="onDelete(input.value)">Delete</button>

@@ -45,6 +45,13 @@ const routes: Routes = [
             ).then((m) => m.DebouncingInteractionModule),
     },
     {
+        path: 'delete-with-body',
+        loadChildren: () =>
+            import('./pages/delete-with-body/delete-with-body.module').then(
+                (m) => m.DeleteWithBodyModule
+            ),
+    },
+    {
         path: '',
         redirectTo: 'entire-response',
         pathMatch: 'full',

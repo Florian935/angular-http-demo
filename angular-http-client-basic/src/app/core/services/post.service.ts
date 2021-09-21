@@ -51,6 +51,14 @@ export class PostService {
             .pipe(retry(3), catchError(this.handleError));
     }
 
+    deletePosts(ids: Array<string>): Observable<void> {
+        const body = { body: ids };
+
+        return this._http
+            .delete<void>(this.BASE_API_URL, body)
+            .pipe(retry(3), catchError(this.handleError));
+    }
+
     private handleError(error: HttpErrorResponse) {
         if (error.status === 0) {
             // A client-side or network error occurred. Handle it accordingly.

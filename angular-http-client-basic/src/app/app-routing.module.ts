@@ -52,6 +52,13 @@ const routes: Routes = [
             ),
     },
     {
+        path: 'get-query-params',
+        loadChildren: () =>
+            import('./pages/get-query-params/get-query-params.module').then(
+                (m) => m.GetQueryParamsModule
+            ),
+    },
+    {
         path: '',
         redirectTo: 'entire-response',
         pathMatch: 'full',

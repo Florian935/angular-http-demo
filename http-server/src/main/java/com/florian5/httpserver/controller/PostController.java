@@ -4,10 +4,7 @@ import com.florian5.httpserver.domain.Post;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -27,6 +24,17 @@ public class PostController {
         add(new Post(5, "Post 5", "Body 5"));
     }};
 
+    @GetMapping(path = "/by-ids")
+    @ResponseStatus(OK)
+    List<Post> getPostsByIds(@RequestParam String ids) {
+        final List<String> idsAsList = Arrays.stream(ids.split(",")).toList();
+
+        return posts.stream()
+                .filter(post ->
+                        idsAsList.stream()
+                                .anyMatch(id -> post.getId().equals(Integer.parseInt(id))))
+                .toList();
+    }
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)

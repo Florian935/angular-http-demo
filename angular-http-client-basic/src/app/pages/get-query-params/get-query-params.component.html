@@ -1,0 +1,10 @@
+<h2>Get with query params list:</h2>
+
+<label for="ids">Enter post's ID to retrieve (separate by comma)</label>
+<input id="ids" #input (keyup)="onGet(input.value)" />
+<br />
+<ng-container *ngIf="posts$ | async as posts">
+    <div *ngFor="let post of posts">
+        {{ post.title }}
+    </div>
+</ng-container>

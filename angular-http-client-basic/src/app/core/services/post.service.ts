@@ -59,6 +59,16 @@ export class PostService {
             .pipe(retry(3), catchError(this.handleError));
     }
 
+    getPostByIds(params: HttpParams): Observable<Array<Post>> {
+        const options = {
+            params,
+        };
+
+        return this._http
+            .get<Array<Post>>(`${this.BASE_API_URL}/by-ids`, options)
+            .pipe(retry(3), catchError(this.handleError));
+    }
+
     private handleError(error: HttpErrorResponse) {
         if (error.status === 0) {
             // A client-side or network error occurred. Handle it accordingly.
